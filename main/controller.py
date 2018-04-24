@@ -127,8 +127,21 @@ def compareAndAssess():
     queue = Queue.Queue()
     for ligand in os.listdir(ligands_temp_dir):
         # get the ligand id from the name of the file
-        mdrr_ligand_structure_id = ligand.split("_")[0]
-        ligand_name = ligand.split("_")[1]
+        split_ligand_filename = ligand.split("_")
+        if len(split_ligand_filename) == 1:
+            # if ligand filename doesn't have "_" set id to 00000000 and the ligand name to the filename
+            mdrr_ligand_structure_id = "00000000"
+            ligand_name = split_ligand_filename[0]
+        elif len(split_ligand_filename) == 2:
+            # if ligand filename has 2x"_" set id to the first element and the ligand name to the second
+            # this is how the MDRR will name the ligand by default
+            mdrr_ligand_structure_id = split_ligand_filename[0]
+            ligand_name = split_ligand_filename[1]
+        else:
+            # if ligand filename has more than 1x"_" assume the first element is the id the rest are the name e.g. 123_ligand_awesome_name.pdbqt
+            mdrr_ligand_structure_id = split_ligand_filename[0]
+            ligand_name = "_".join(split_ligand_filename[1:])
+            
         # don't run Ligsift if the same ligand as target_ligand exists in all_ligands.zip
         if not mdrr_ligand_structure_id == target_structure_id:
             output_file = temp_dir + os.sep + "dummy_output.out"
