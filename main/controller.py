@@ -1069,7 +1069,7 @@ def consult():
                     if pubchem_sign == "<":
                         if float(pubchem_value) < pubchem_threshold:
                             filtered_smiles.append( smiles_entry)
-                    elif pubchem_sign == "≥":
+                    elif pubchem_sign == ">=":
                         if float(pubchem_value) >= pubchem_threshold:
                             filtered_smiles.append( smiles_entry)
             else:
