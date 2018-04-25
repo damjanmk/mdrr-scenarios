@@ -1,7 +1,7 @@
-center_x = 0.1
-center_y = 0.2
-center_z = -0.1
-size_x = 36.1
-size_y = 32.3
-size_z = 34.9
+center_x = 113.1
+center_y = 23
+center_z = 6.65
+size_x = 37
+size_y = 49
+size_z = 39.9
 exhaustiveness = 8
