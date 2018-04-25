@@ -62,7 +62,8 @@ def insertMany():
         return to_return
     
     group_id = bottle.request.params.get("group_id")
-    
+    if not group_id:
+        group_id = "test-group-id"
     # declare names of temporary directories where zip files will be unzipped
     temp_dir = "." + os.sep + "temp"
     
@@ -388,7 +389,8 @@ def suggestNext():
     thresholdDeepAlign = bottle.request.params.get("thresholdDeepAlign")
     thresholdVinaDocking = bottle.request.params.get("thresholdVinaDocking")
     group_id = bottle.request.params.get("group_id")
-    
+    if not group_id:
+        group_id = "test-group-id"
     # declare names of temporary directories where zip files will be unzipped
     temp_dir = "." + os.sep + "temp"
     
@@ -590,7 +592,6 @@ def verify():
     thresholdLigsift = bottle.request.params.get("thresholdLigsift")
     thresholdConfig = bottle.request.params.get("thresholdConfig")
     group_id = bottle.request.params.get("group_id")
-    
     if not group_id:
         group_id = "test-group-id"
     
