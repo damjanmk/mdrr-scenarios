@@ -19,6 +19,11 @@ import mdrr.receptor_parser
 import dm.decider
 import datetime
 
+def getMongoDB():
+    client = pymongo.MongoClient()      
+    db = client.mdrr_small
+    return db
+
 @bottle.post('/insertMany')
 def insertMany():
     """ Insert 1..* results made up of 1..* ligands, 1..* receptors and 1..* config files
@@ -77,9 +82,8 @@ def insertMany():
     ligands_temp_dir = temp_dir + os.sep + "ligands_insertMany_" + str(timestamp)
     receptors_temp_dir = temp_dir + os.sep + "receptors_insertMany_" + str(timestamp)
     
-    # connect to the MongoDB - this could go in another method
-    client = pymongo.MongoClient()      
-    db = client.mdrr_1
+    # connect to the MongoDB    
+    db = getMongoDB()
     
     # call the method to insert the data in MongoDB
     to_return = insert(db, ligands, ligands_temp_dir, receptors, receptors_temp_dir, configs, configs_temp_dir, results, results_temp_dir, group_id)
@@ -407,9 +411,8 @@ def suggestNext():
             receptors_zip.extractall(receptors_temp_dir)
     
     
-    # connect to the MongoDB - this could go in another method
-    client = pymongo.MongoClient()      
-    db = client.mdrr_1
+    # connect to the MongoDB
+    db = getMongoDB()
     
     # 1) calling the AT DeepAlign and AssessDeepAlign
         
@@ -655,9 +658,8 @@ def verify():
         os.mkdir(all_configs_temp_dir)
         print all_configs_temp_dir + " created \n"
 
-    # connect to the MongoDB - this could go in another method
-    client = pymongo.MongoClient()      
-    db = client.mdrr_1
+    # connect to the MongoDB
+    db = getMongoDB()
     
     # 1) calling the AT DeepAlign and AssessDeepAlign
         
@@ -934,9 +936,8 @@ def consult():
         
     zip_ext = ".zip"    
     
-    # connect to the MongoDB - this could go in another method
-    client = pymongo.MongoClient()      
-    db = client.mdrr_1
+    # connect to the MongoDB
+    db = getMongoDB()
     
     mdrr_selector = mdrr.selector.Selector(db)
     mdrr_inserter = mdrr.inserter.Inserter(db)  
@@ -1133,17 +1134,15 @@ def get_ligand():
             to_return["data"] = "structure_id or _id required as a GET parameter named 'structure_id' or '_id'!"
             return to_return
         
-        # connect to the MongoDB - this could go in another method
-        client = pymongo.MongoClient()      
-        db = client.mdrr_1
+        # connect to the MongoDB
+        db = getMongoDB()
         
         mdrr_selector = mdrr.selector.Selector(db)
         to_return["data"] = bson.json_util.dumps( mdrr_selector.select_ligand_by_id(ligand_id) )
         
     else:
-        # connect to the MongoDB - this could go in another method
-        client = pymongo.MongoClient()      
-        db = client.mdrr_1
+        # connect to the MongoDB
+        db = getMongoDB()
         
         mdrr_selector = mdrr.selector.Selector(db)
         to_return["data"] = bson.json_util.dumps( mdrr_selector.select_ligand(structure_id) )    
@@ -1173,17 +1172,15 @@ def get_receptor():
             to_return["data"] = "structure_id or _id required as a GET parameter named 'structure_id' or '_id'!"
             return to_return
         
-        # connect to the MongoDB - this could go in another method
-        client = pymongo.MongoClient()      
-        db = client.mdrr_1
+        # connect to the MongoDB
+        db = getMongoDB()
         
         mdrr_selector = mdrr.selector.Selector(db)
         to_return["data"] = bson.json_util.dumps( mdrr_selector.select_receptor_by_id(receptor_id) )
         
     else:
-        # connect to the MongoDB - this could go in another method
-        client = pymongo.MongoClient()      
-        db = client.mdrr_1
+        # connect to the MongoDB
+        db = getMongoDB()
         
         mdrr_selector = mdrr.selector.Selector(db)
         to_return["data"] = bson.json_util.dumps( mdrr_selector.select_receptor(structure_id) )    
@@ -1210,9 +1207,8 @@ def get_result_by_id():
         to_return["data"]["id"] = "id required as a GET parameter named 'id'!"
         return to_return
     
-    # connect to the MongoDB - this could go in another method
-    client = pymongo.MongoClient()      
-    db = client.mdrr_1
+    # connect to the MongoDB
+    db = getMongoDB()
     
     mdrr_selector = mdrr.selector.Selector(db)
     to_return["data"] = bson.json_util.dumps( mdrr_selector.select_result_by_id( result_id ) )
