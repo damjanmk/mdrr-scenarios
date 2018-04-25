@@ -37,9 +37,9 @@ class AssessDockingWithThreshold():
                     if model["affinity"] < self.threshold:
                         # if this is the first 'good' model, set the values for result_id, ligand, and create the 'good_models' list
                         if not at_least_one_good_model:                        
-                            assessed["result_id"] = result["_id"]
-                            assessed["ligand_structure_id"] = result["ligand"]
-                            assessed["receptor_structure_id"] = result["receptor"]
+                            assessed["result_id"] = str(result["result_id"])
+                            assessed["ligand_structure_id"] = result["_id"]["ligand"]
+                            assessed["receptor_structure_id"] = result["_id"]["receptor"]
                             assessed["good_models"] = []
                             # set this flag to True
                             at_least_one_good_model = True
@@ -71,9 +71,9 @@ class AssessDockingWithThreshold():
                 if float(model["affinity"]) < self.threshold:
                     # if this is the first 'good' model, set the values for result_id, ligand, and create the 'good_models' list
                     if not at_least_one_good_model:                        
-                        assessed["result_id"] = str(result["_id"])
-                        assessed["ligand_structure_id"] = result["ligand"]
-                        assessed["receptor_structure_id"] = result["receptor"]
+                        assessed["result_id"] = str(result["result_id"])
+                        assessed["ligand_structure_id"] = result["_id"]["ligand"]
+                        assessed["receptor_structure_id"] = result["_id"]["receptor"]
                         assessed["good_models"] = []
                         # set this flag to True
                         at_least_one_good_model = True
