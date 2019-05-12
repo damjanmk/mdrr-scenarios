@@ -1,3 +1,7 @@
+# NB: Supplementary Data
+The Supplementary Data extracted from my PhD thesis are located in the branch `mdrr-dm`, in the folder SupplementaryData. The remainder of that branch and the other branches contain the code, as described below.
+
+
 # mdrr-scenarios
 The needed elements for three scenarios that use the MDRR. In all scenarios the element MDE is the extended version of Raccoon2 which can be found in the repository named Raccoon2 branch `mdrr`: https://github.com/damjanmk/Raccoon2.
 
